@@ -31,6 +31,9 @@ struct AppView: View {
     }
 }
 
-#Preview {
-    AppView()
+#Preview("AppView - Tabbar") {
+    AppView(showTabBar: true)
+}
+#Preview("AppView - Onboarding") {
+    AppView(showTabBar: false)
 }
