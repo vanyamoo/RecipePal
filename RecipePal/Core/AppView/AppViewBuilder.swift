@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppViewBuilder<TabbarView: View, OnboardingView: View>: View {
     
-    var showTabBar: Bool
+    var showTabBar: Bool = false
     @ViewBuilder var tabBarView: TabbarView
     @ViewBuilder var onboardingView: OnboardingView
     
@@ -29,10 +29,9 @@ struct AppViewBuilder<TabbarView: View, OnboardingView: View>: View {
 
 private struct PreviewView: View {
     
-    var showTabBar: Bool
+    @State private var showTabBar: Bool = false
     
     var body: some View {
-        
         AppViewBuilder(
             showTabBar: showTabBar,
             tabBarView: {
@@ -48,9 +47,12 @@ private struct PreviewView: View {
                 }
             }
         )
+        .onTapGesture {
+            showTabBar.toggle()
+        }
     }
 }
 
 #Preview {
-    PreviewView(showTabBar: false)
+    PreviewView()
 }
