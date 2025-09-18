@@ -27,7 +27,7 @@ struct AppViewBuilder<TabbarView: View, OnboardingView: View>: View {
     }
 }
 
-private struct AppViewPreview: View {
+private struct PreviewView: View {
     
     var showTabBar: Bool
     
@@ -52,5 +52,5 @@ private struct AppViewPreview: View {
 }
 
 #Preview {
-    AppViewPreview(showTabBar: false)
+    PreviewView(showTabBar: false)
 }
