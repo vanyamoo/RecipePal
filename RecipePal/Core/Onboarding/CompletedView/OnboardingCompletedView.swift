@@ -9,7 +9,23 @@ import SwiftUI
 
 struct OnboardingCompletedView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Onboarding Completed!")
+                .frame(maxHeight: .infinity)
+            
+            Button {
+                // finish onboarding and enter app
+            } label: {
+                Text("Finish")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55)
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                    .background(.accent)
+                    .cornerRadius(16)
+            }
+        }
+        .padding(16)
     }
 }
 
