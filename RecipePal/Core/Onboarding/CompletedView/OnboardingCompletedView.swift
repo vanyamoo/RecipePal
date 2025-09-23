@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct OnboardingCompletedView: View {
+    
+    @Environment(AppState.self) private var root
+    
     var body: some View {
         VStack {
             Text("Onboarding Completed!")
                 .frame(maxHeight: .infinity)
             
             Button {
-                // finish onboarding and enter app
+                onFinishButtonTapped()
             } label: {
                 Text("Finish")
                     .callToActionButton()
@@ -22,8 +25,14 @@ struct OnboardingCompletedView: View {
         }
         .padding(16)
     }
+    
+    func onFinishButtonTapped() {
+        // other logic to complete onboarding...
+        root.updateViewState(showTabBarView: true)
+    }
 }
 
 #Preview {
     OnboardingCompletedView()
+        .environment(AppState())
 }
