@@ -12,18 +12,64 @@ struct WelcomeView: View {
         NavigationStack {
             VStack {
                 
-                Text("Welcome")
-                    .frame(maxHeight: .infinity)
+                ImageLoaderView()
+                    .ignoresSafeArea()
                 
-                NavigationLink {
-                    OnboardingCompletedView()
-                } label: {
-                    Text("Get Started")
-                        .callToActionButton()
-                }
-
+                titleSection
+                    .padding(.top, 24)
+                
+                ctaButtons
+                    .padding(16)
+                
+                policyLinks
             }
-            .padding(16)
+        }
+    }
+    
+    private var titleSection: some View {
+        VStack {
+            Text("Recipe Pal")
+                .font(.largeTitle)
+                .fontWeight(.semibold)
+            
+            Text(" YouTube @RecipePal")
+                .foregroundStyle(.secondary)
+                .font(.caption)
+        }
+    }
+    
+    private var ctaButtons: some View {
+        VStack {
+            NavigationLink {
+                OnboardingCompletedView()
+            } label: {
+                Text("Get Started")
+                    .callToActionButton()
+            }
+            
+            Text("Already have an account? Sign In!")
+                .underline()
+                .padding(8)
+                .background(.black.opacity(0.001))
+                .onTapGesture {
+                    
+                }
+        }
+    }
+    
+    private var policyLinks: some View {
+        HStack {
+            Link(destination: URL(string: Constants.termsOfServiceURL)!) {
+                Text("Terms of Service")
+            }
+            
+            Circle()
+                .fill(.accent)
+                .frame(width: 4, height: 4)
+            
+            Link(destination: URL(string: Constants.privacyPolicyURL)!) {
+                Text("Privacy Policy")
+            }
         }
     }
 }
