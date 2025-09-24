@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    
+    @State var imageName: String = Constants.randomImage
+    
     var body: some View {
         NavigationStack {
             VStack {
                 
-                ImageLoaderView()
+                ImageLoaderView(urlString: imageName)
                     .ignoresSafeArea()
                 
                 titleSection
