@@ -50,7 +50,7 @@ struct WelcomeView: View {
             Text("Already have an account? Sign In!")
                 .underline()
                 .padding(8)
-                .background(.black.opacity(0.001))
+                .tappableBackground()
                 .onTapGesture {
                     
                 }
