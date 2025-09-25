@@ -10,6 +10,7 @@ import SwiftUI
 struct OnboardingCompletedView: View {
     
     @Environment(AppState.self) private var root
+    @State private var isCompletingProfileSetup = false
     var selectedTheme: Color = .orange
     
     var body: some View {
@@ -33,20 +34,34 @@ struct OnboardingCompletedView: View {
     
     func onFinishButtonTapped() {
         // other logic to complete onboarding...
-        root.updateViewState(showTabBarView: true)
+        isCompletingProfileSetup = true
+        
+        Task {
+            // try await saveUserProfile(color: selectedTheme)
+            try await Task.sleep(for: .seconds(3))
+            isCompletingProfileSetup = false
+            root.updateViewState(showTabBarView: true)
+        }
     }
     
     private var ctaButton: some View {
         Button {
             onFinishButtonTapped()
         } label: {
-            Text("Finish")
-                .callToActionButton()
+            ZStack {
+                if isCompletingProfileSetup {
+                    ProgressView()
+                        .tint(.white)
+                } else {
+                    Text("Finish")
+                }
+            }
+            .callToActionButton()
         }
     }
 }
 
 #Preview {
-    OnboardingCompletedView()
+    OnboardingCompletedView(selectedTheme: .mint)
         .environment(AppState())
 }
