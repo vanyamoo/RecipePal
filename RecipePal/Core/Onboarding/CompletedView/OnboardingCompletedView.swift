@@ -10,15 +10,25 @@ import SwiftUI
 struct OnboardingCompletedView: View {
     
     @Environment(AppState.self) private var root
+    var selectedTheme: Color = .orange
     
     var body: some View {
-        VStack {
-            Text("Onboarding Completed!")
+        VStack(alignment: .leading, spacing: 12) {
+                    Text("Setup complete!")
+                        .font(.largeTitle)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(selectedTheme)
+                    
+                    Text("We've set up your profile and you're ready to start chatting")
+                        .font(.title)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.secondary)
+                }
                 .frame(maxHeight: .infinity)
-            
-            ctaButton
-        }
-        .padding(16)
+                .safeAreaInset(edge: .bottom, content: {
+                    ctaButton
+                })
+                .padding(24)
     }
     
     func onFinishButtonTapped() {

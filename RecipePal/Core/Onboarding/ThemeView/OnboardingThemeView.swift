@@ -22,7 +22,7 @@ struct OnboardingThemeView: View {
         .safeAreaInset(edge: .bottom, alignment: .center, spacing: 16, content: {
                 ZStack {
                     if let selectedColor {
-                        ctaButton
+                        ctaButton(selectedTheme: selectedColor)
                             .transition(.move(edge: .bottom))
                     }
                 }
@@ -60,9 +60,11 @@ struct OnboardingThemeView: View {
         )
     }
     
-    private var ctaButton: some View {
+    private func ctaButton(selectedTheme: Color) -> some View {
         NavigationLink {
-            OnboardingCompletedView()
+            if let selectedColor {
+                OnboardingCompletedView(selectedTheme: selectedColor)
+            }
         } label: {
             Text("Continue")
                 .callToActionButton()
