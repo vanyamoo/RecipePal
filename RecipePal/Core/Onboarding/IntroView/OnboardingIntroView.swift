@@ -13,7 +13,7 @@ struct OnboardingIntroView: View {
             VStack(alignment: .leading) {
                 Text("Make your own ")
                 +
-                Text("cooking assistants ")
+                Text("recipe assistants ")
                     .fontWeight(.semibold)
                     .foregroundStyle(.accent)
                 +
