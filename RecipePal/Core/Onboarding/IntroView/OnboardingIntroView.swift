@@ -37,7 +37,7 @@ struct OnboardingIntroView: View {
     
     private var ctaButton: some View {
         NavigationLink {
-            //OnboardingThemeView()
+            OnboardingThemeView()
         } label: {
             Text("Continue")
                 .callToActionButton()

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingThemeView: View {
     
+    @State var selectedColor: Color?
     private var profileThemes: [Color] = [.red, .green, .orange, .blue, .mint, .purple, .cyan, .teal, .indigo]
     
     var body: some View {
@@ -22,7 +23,15 @@ struct OnboardingThemeView: View {
                     Section(content: {
                         ForEach(profileThemes, id: \.self) { color in
                             Circle()
-                                .fill(color)
+                                .fill(.accent)
+                                .overlay(
+                                    color
+                                        .clipShape(Circle())
+                                        .padding(selectedColor == color ? 10 : 0)
+                                )
+                                .onTapGesture {
+                                    selectedColor = color
+                                }
                         }
                     }, header: {
                         Text("Select a profile theme")
@@ -38,10 +47,16 @@ struct OnboardingThemeView: View {
             alignment: .center,
             spacing: 16,
             content: {
-                ctaButton
-                    .padding(24)
+                ZStack {
+                    if let selectedColor {
+                        ctaButton
+                            .transition(.move(edge: .bottom))
+                    }
+                }
+                .padding(24)
             }
         )
+        .animation(.bouncy, value: selectedColor)
     }
     
     private var ctaButton: some View {
@@ -55,5 +70,7 @@ struct OnboardingThemeView: View {
 }
 
 #Preview {
-    OnboardingThemeView()
+    NavigationStack {
+        OnboardingThemeView()
+    }
 }
