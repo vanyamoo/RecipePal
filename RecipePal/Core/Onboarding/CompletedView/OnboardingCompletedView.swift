@@ -16,12 +16,7 @@ struct OnboardingCompletedView: View {
             Text("Onboarding Completed!")
                 .frame(maxHeight: .infinity)
             
-            Button {
-                onFinishButtonTapped()
-            } label: {
-                Text("Finish")
-                    .callToActionButton()
-            }
+            ctaButton
         }
         .padding(16)
     }
@@ -29,6 +24,15 @@ struct OnboardingCompletedView: View {
     func onFinishButtonTapped() {
         // other logic to complete onboarding...
         root.updateViewState(showTabBarView: true)
+    }
+    
+    private var ctaButton: some View {
+        Button {
+            onFinishButtonTapped()
+        } label: {
+            Text("Finish")
+                .callToActionButton()
+        }
     }
 }
 
