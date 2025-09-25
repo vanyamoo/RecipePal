@@ -30,6 +30,7 @@ struct OnboardingThemeView: View {
             }
         )
         .animation(.bouncy, value: selectedColor)
+        .toolbar(.hidden, for : .navigationBar)
     }
     
     private var colorGrid: some View {
