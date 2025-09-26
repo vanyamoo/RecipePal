@@ -60,6 +60,10 @@ enum Cathegory: String {
     case afternoonSnack = "Afternoon Snack"
     case cookingWithKids = "Cooking with Kids"
     case pasta = "Pasta"
+    
+    static var defaultValue: Self {
+        .traybakeDinner
+    }
 }
 
 enum CookingTime: Int {
@@ -71,6 +75,10 @@ enum CookingTime: Int {
     case fortyFiveMinutes = 45
     case oneHour = 60
     case twoHours = 120
+    
+    static var defaultValue: Self {
+        .twentyMinutes
+    }
 }
 
 enum Cuisine: String {
@@ -78,6 +86,10 @@ enum Cuisine: String {
     case indian = "Indian"
     case japanese = "Japanese"
     case asian = "Asian"
+    
+    static var defaultValue: Self {
+        .italian
+    }
     
 }
 
@@ -89,4 +101,8 @@ enum MainIngredient: String {
     case vegetables = "Vegetables"
     case grainsAndLegumes = "Grains and Legumes"
     case pasta = "Pasta"
+    
+    static var defaultValue: Self {
+        .chicken
+    }
 }
