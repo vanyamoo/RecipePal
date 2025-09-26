@@ -40,6 +40,10 @@ struct RecipeAssistantModel {
         self.dateCreated = dateCreated
     }
     
+    var description: String {
+        RecipeAssistantDescriptionBuilder(assistant: self).assistantDescription
+    }
+    
     static var mock: RecipeAssistantModel {
         mocks[0]
     }
@@ -52,17 +56,43 @@ struct RecipeAssistantModel {
     ]
 }
 
+struct RecipeAssistantDescriptionBuilder {
+    var cathegory: Cathegory?
+    var cookingTime: CookingTime?
+    var cuisine: Cuisine?
+    var mainIngredient: MainIngredient?
+    
+    init(cathegory: Cathegory? = nil, cookingTime: CookingTime? = nil, cuisine: Cuisine? = nil, mainIngredient: MainIngredient? = nil) {
+        self.cathegory = cathegory
+        self.cookingTime = cookingTime
+        self.cuisine = cuisine
+        self.mainIngredient = mainIngredient
+    }
+    
+    init(assistant: RecipeAssistantModel) {
+        self.cathegory = assistant.cathegory ?? .defaultValue
+        self.cookingTime = assistant.cookingTime ?? .defaultValue
+        self.cuisine = assistant.cuisine ?? .defaultValue
+        self.mainIngredient = assistant.mainIngredient ?? .defaultValue
+    }
+    
+    var assistantDescription: String {
+        "Recipes for \(cathegory!.rawValue) \(mainIngredient!.rawValue) that takes \(cookingTime!.rawValue) min. \(cuisine!.rawValue)"
+    }
+}
+
 enum Cathegory: String {
-    case traybakeDinner = "Traybake Dinner"
-    case healthyBowl = "Healthy Bowl"
-    case quickAndEasy = "Quick and Easy"
-    case soup = "Soup"
-    case afternoonSnack = "Afternoon Snack"
+    case traybakeDinner = "a Traybake Dinner"
+    case healthyBowl = "a Healthy Bowl"
+    case quickAndEasy = "a Quick and Easy meal"
+    case soup = "a Soup"
+    case afternoonSnack = "a Snack"
     case cookingWithKids = "Cooking with Kids"
-    case pasta = "Pasta"
+    case pasta = "a Pasta meal"
+    case meal = "a meal"
     
     static var defaultValue: Self {
-        .traybakeDinner
+        meal
     }
 }
 
@@ -82,27 +112,29 @@ enum CookingTime: Int {
 }
 
 enum Cuisine: String {
-    case italian = "Italian"
-    case indian = "Indian"
-    case japanese = "Japanese"
-    case asian = "Asian"
+    case italian = "Italian."
+    case indian = "Indian."
+    case japanese = "Japanese."
+    case asian = "Asian."
+    case any = ""
     
     static var defaultValue: Self {
-        .italian
+        .any
     }
     
 }
 
 enum MainIngredient: String {
-    case chicken = "Chicken"
-    case beef = "Beef"
-    case pork = "Pork"
-    case fishAndSeafood = "Fish and Seafood"
-    case vegetables = "Vegetables"
-    case grainsAndLegumes = "Grains and Legumes"
-    case pasta = "Pasta"
+    case chicken = "with Chicken"
+    case beef = "with Beef"
+    case pork = "with Pork"
+    case fishAndSeafood = "with Fish/Seafood"
+    case vegetables = "with Vegetables"
+    case grainsAndLegumes = "with Grains/Legumes"
+    case pasta = "with Pasta"
+    case any = ""
     
     static var defaultValue: Self {
-        .chicken
+        .any
     }
 }
