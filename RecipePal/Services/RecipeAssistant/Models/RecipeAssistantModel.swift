@@ -10,7 +10,7 @@ import Foundation
 struct RecipeAssistantModel {
     let id: String
     let name: String?
-    let characterOption: Cathegory?
+    let cathegory: Cathegory?
     let cookingTime: CookingTime?
     let cuisine: Cuisine?
     let mainIngredient: MainIngredient?
@@ -21,7 +21,7 @@ struct RecipeAssistantModel {
     init(
         id: String,
         name: String? = nil,
-        characterOption: Cathegory? = nil,
+        cathegory: Cathegory? = nil,
         cookingTime: CookingTime? = nil,
         cuisine: Cuisine? = nil,
         mainIngredient: MainIngredient? = nil,
@@ -31,7 +31,7 @@ struct RecipeAssistantModel {
     ) {
         self.id = id
         self.name = name
-        self.characterOption = characterOption
+        self.cathegory = cathegory
         self.cookingTime = cookingTime
         self.cuisine = cuisine
         self.mainIngredient = mainIngredient
