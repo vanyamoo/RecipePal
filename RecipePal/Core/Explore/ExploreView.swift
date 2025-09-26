@@ -8,10 +8,18 @@
 import SwiftUI
 
 struct ExploreView: View {
+    
+    let assistant = RecipeAssistantModel.mock
+    
     var body: some View {
         NavigationStack {
-            Text("Explore")
-                .navigationTitle("Explore")
+            HeroCellView(
+                title: assistant.name,
+                subtitle: "Here goes the description",
+                imageName: assistant.profileImageName
+            )
+            .frame(height: 200)
+            .navigationTitle("Explore")
         }
     }
 }
