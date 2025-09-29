@@ -36,6 +36,11 @@ struct CarouselView: View {
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.paging) // Forces the ScrollView to snap from one item to the next
             .scrollPosition(id: $selection)
+            .onChange(of: items.count, { _, _ in
+                if selection == nil {
+                    selection = items.first
+                }
+            })
             .onAppear {
                 if selection == nil {
                     selection = items.first
