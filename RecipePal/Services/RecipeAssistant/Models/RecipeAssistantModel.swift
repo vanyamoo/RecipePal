@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecipeAssistantModel {
+struct RecipeAssistantModel: Hashable {
     let id: String
     let name: String?
     let cathegory: Cathegory?
