@@ -50,6 +50,7 @@ struct CarouselView: View {
                         .frame(width: 8, height: 8)
                 }
             }
+            .animation(.linear, value: selection)
         }
     }
     
