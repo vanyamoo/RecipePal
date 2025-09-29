@@ -47,7 +47,7 @@ struct CarouselView: View {
                 ForEach(items, id: \.self) { item in
                     Circle()
                         .fill(selection == item ? .accent : .secondary.opacity(0.3))
-                        .frame(width: 8)
+                        .frame(width: 8, height: 8)
                 }
             }
         }
