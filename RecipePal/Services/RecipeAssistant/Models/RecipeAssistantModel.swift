@@ -52,7 +52,7 @@ struct RecipeAssistantModel: Hashable {
         RecipeAssistantModel(id: UUID().uuidString, name: "Quick and Easy Lunch", cathegory: .healthyBowl, cookingTime: .tenMinutes, cuisine: nil, mainIngredient: .grainsAndLegumes, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
         RecipeAssistantModel(id: UUID().uuidString, name: "No effort dinner", cathegory: .traybakeDinner, cookingTime: .twentyMinutes, cuisine: nil, mainIngredient: .chicken, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
         RecipeAssistantModel(id: UUID().uuidString, name: "Playdate Ideas", cathegory: .afternoonSnack, cookingTime: .fifteenMinutes, cuisine: nil, mainIngredient: nil, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
-        RecipeAssistantModel(id: UUID().uuidString, name: "Sunday Evening", cathegory: nil, cookingTime: .oneHour, cuisine: nil, mainIngredient: nil, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
+        RecipeAssistantModel(id: UUID().uuidString, name: "Sunday Evening", cathegory: nil, cookingTime: .oneHour, cuisine: nil, mainIngredient: nil, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now)
     ]
 }
 
