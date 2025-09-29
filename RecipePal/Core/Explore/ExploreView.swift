@@ -9,15 +9,17 @@ import SwiftUI
 
 struct ExploreView: View {
     
-    let assistant = RecipeAssistantModel.mock
+    let assistants = RecipeAssistantModel.mocks
     
     var body: some View {
         NavigationStack {
-            HeroCellView(
-                title: assistant.name,
-                subtitle: assistant.description,
-                imageName: assistant.profileImageName
-            )
+            CarouselView(items: assistants) { item in
+                HeroCellView(
+                    title: item.name,
+                    subtitle: item.description,
+                    imageName: item.profileImageName
+                )
+            }
             .frame(height: 200)
             .navigationTitle("Explore")
         }

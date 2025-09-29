@@ -7,21 +7,18 @@
 
 import SwiftUI
 
-struct CarouselView: View {
+struct CarouselView<T: Hashable, Content: View>: View {
     
-    var items: [RecipeAssistantModel] = RecipeAssistantModel.mocks
-    @State var selection: RecipeAssistantModel?
+    var items: [T]
+    var content: (T) -> Content
+    @State var selection: T?
     
     var body: some View {
         VStack {
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 0) {
                     ForEach(items, id: \.self) { item in
-                        HeroCellView(
-                            title: item.name,
-                            subtitle: item.description,
-                            imageName: item.profileImageName
-                        )
+                        content(item)
                         .containerRelativeFrame(.horizontal) // Makes the view take up the full width
                         .scrollTransition(.interactive.threshold(.visible(0.95)), transition: { content, phase in // main effect logic
                             content
@@ -62,6 +59,12 @@ struct CarouselView: View {
 }
 
 #Preview {
-    CarouselView()
-        .padding()
+    CarouselView(items: RecipeAssistantModel.mocks) { item in
+        HeroCellView(
+            title: item.name,
+            subtitle: item.description,
+            imageName: item.profileImageName
+        )
+    }
+    .padding()
 }
