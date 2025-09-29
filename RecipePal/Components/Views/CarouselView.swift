@@ -37,14 +37,10 @@ struct CarouselView: View {
             .scrollTargetBehavior(.paging) // Forces the ScrollView to snap from one item to the next
             .scrollPosition(id: $selection)
             .onChange(of: items.count, { _, _ in
-                if selection == nil {
-                    selection = items.first
-                }
+                updateSelectionIfNeeded()
             })
             .onAppear {
-                if selection == nil {
-                    selection = items.first
-                }
+                updateSelectionIfNeeded()
             }
             
             HStack {
@@ -54,6 +50,12 @@ struct CarouselView: View {
                         .frame(width: 8)
                 }
             }
+        }
+    }
+    
+    private func updateSelectionIfNeeded() {
+        if selection == nil {
+            selection = items.first
         }
     }
 }
