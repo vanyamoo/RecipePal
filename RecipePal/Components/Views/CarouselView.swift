@@ -10,6 +10,7 @@ import SwiftUI
 struct CarouselView: View {
     
     var items: [RecipeAssistantModel] = RecipeAssistantModel.mocks
+    @State var selection: RecipeAssistantModel?
     
     var body: some View {
         VStack {
@@ -26,6 +27,7 @@ struct CarouselView: View {
                             content
                                 .scaleEffect(phase.isIdentity ? 1 : 0.9)
                         })
+                        .id(item)
                     }
                 }
                 .scrollTargetLayout() // Essential: Defines the layout items for paging
@@ -33,11 +35,17 @@ struct CarouselView: View {
             .frame(height: 200)
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.paging) // Forces the ScrollView to snap from one item to the next
+            .scrollPosition(id: $selection)
+            .onAppear {
+                if selection == nil {
+                    selection = items.first
+                }
+            }
             
             HStack {
                 ForEach(items, id: \.self) { item in
                     Circle()
-                        .fill(.secondary.opacity(0.3))
+                        .fill(selection == item ? .accent : .secondary.opacity(0.3))
                         .frame(width: 8)
                 }
             }
