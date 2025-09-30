@@ -50,7 +50,7 @@ struct HeroCellView: View {
                         startPoint: .top,
                         endPoint: .bottom
                     )
-            )
+                )
         })
         .cornerRadius(16)
     }
