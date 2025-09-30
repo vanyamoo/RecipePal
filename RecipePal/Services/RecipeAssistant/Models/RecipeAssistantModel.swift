@@ -81,7 +81,7 @@ struct RecipeAssistantDescriptionBuilder {
     }
 }
 
-enum Cathegory: String {
+enum Cathegory: String, CaseIterable, Hashable {
     case traybakeDinner = "a Traybake Dinner"
     case healthyBowl = "a Healthy Bowl"
     case quickAndEasy = "a Quick and Easy meal"
