@@ -13,15 +13,23 @@ struct ExploreView: View {
     
     var body: some View {
         NavigationStack {
-            CarouselView(items: featuredAssistants) { assistant in
-                HeroCellView(
-                    title: assistant.name,
-                    subtitle: assistant.description,
-                    imageName: assistant.profileImageName
-                )
+            List {
+                
+                Section {
+                    CarouselView(items: featuredAssistants) { assistant in
+                        HeroCellView(
+                            title: assistant.name,
+                            subtitle: assistant.description,
+                            imageName: assistant.profileImageName
+                        )
+                    }
+                    .frame(height: 200)
+                    .navigationTitle("Explore")
+                } header: {
+                    Text("Featured Assistants")
+                }
+
             }
-            .frame(height: 200)
-            .navigationTitle("Explore")
         }
     }
 }
