@@ -24,19 +24,7 @@ struct CategoryCellView: View {
                     .foregroundColor(.white)
                     .padding(16)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(
-                                colors: [
-                                    .black.opacity(0),
-                                    .black.opacity(0.3),
-                                    .black.opacity(0.6)
-                                ]
-                            ),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
+                    .addingGradientBackgroundForText()
             }
             .cornerRadius(cornerRadius)
     }

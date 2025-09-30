@@ -27,4 +27,20 @@ extension View {
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             .listRowBackground(Color.clear)
     }
+    
+    func addingGradientBackgroundForText() -> some View {
+        background(
+            LinearGradient(
+                gradient: Gradient(
+                    colors: [
+                        .black.opacity(0),
+                        .black.opacity(0.3),
+                        .black.opacity(0.6)
+                    ]
+                ),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+    }
 }
