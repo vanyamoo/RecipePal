@@ -15,22 +15,26 @@ struct ExploreView: View {
         NavigationStack {
             List {
                 
-                Section {
-                    CarouselView(items: featuredAssistants) { assistant in
-                        HeroCellView(
-                            title: assistant.name,
-                            subtitle: assistant.description,
-                            imageName: assistant.profileImageName
-                        )
-                    }
-                    .removeListRowFormatting()
-                    
-                } header: {
-                    Text("Featured Assistants")
-                }
+                featuredSection
 
             }
             .navigationTitle("Explore")
+        }
+    }
+    
+    private var featuredSection: some View {
+        Section {
+            CarouselView(items: featuredAssistants) { assistant in
+                HeroCellView(
+                    title: assistant.name,
+                    subtitle: assistant.description,
+                    imageName: assistant.profileImageName
+                )
+            }
+            .removeListRowFormatting()
+            
+        } header: {
+            Text("Featured Assistants")
         }
     }
 }
