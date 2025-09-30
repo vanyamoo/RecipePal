@@ -9,15 +9,15 @@ import SwiftUI
 
 struct ExploreView: View {
     
-    let assistants = RecipeAssistantModel.mocks
+    @State private var featuredAssistants = RecipeAssistantModel.mocks
     
     var body: some View {
         NavigationStack {
-            CarouselView(items: assistants) { item in
+            CarouselView(items: featuredAssistants) { assistant in
                 HeroCellView(
-                    title: item.name,
-                    subtitle: item.description,
-                    imageName: item.profileImageName
+                    title: assistant.name,
+                    subtitle: assistant.description,
+                    imageName: assistant.profileImageName
                 )
             }
             .frame(height: 200)
