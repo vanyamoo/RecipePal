@@ -23,13 +23,15 @@ struct ExploreView: View {
                             imageName: assistant.profileImageName
                         )
                     }
-                    .frame(height: 200)
-                    .navigationTitle("Explore")
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    .listRowBackground(Color.clear)
+                    
                 } header: {
                     Text("Featured Assistants")
                 }
 
             }
+            .navigationTitle("Explore")
         }
     }
 }
