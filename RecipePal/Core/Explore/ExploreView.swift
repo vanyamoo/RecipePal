@@ -10,12 +10,15 @@ import SwiftUI
 struct ExploreView: View {
     
     @State private var featuredAssistants = RecipeAssistantModel.mocks
+    @State private var categories: [Category] = Category.allCases
     
     var body: some View {
         NavigationStack {
             List {
                 
                 featuredSection
+                
+                categorySection
 
             }
             .navigationTitle("Explore")
@@ -35,6 +38,27 @@ struct ExploreView: View {
             
         } header: {
             Text("Featured Assistants")
+        }
+    }
+    
+    private var categorySection: some View {
+        Section {
+            ZStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(categories, id: \.self) { category in
+                            CategoryCellView(title: category.rawValue.capitalized, imageName: Constants.randomImage)
+                        }
+                    }
+                }
+                .frame(height: 140)
+                .scrollTargetLayout()
+                .scrollTargetBehavior(.viewAligned)
+            }
+            .removeListRowFormatting()
+            
+        } header: {
+            Text("Categories")
         }
     }
 }
