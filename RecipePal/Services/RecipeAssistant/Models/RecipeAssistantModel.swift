@@ -10,7 +10,7 @@ import Foundation
 struct RecipeAssistantModel: Hashable {
     let id: String
     let name: String?
-    let cathegory: Cathegory?
+    let category: Category?
     let cookingTime: CookingTime?
     let cuisine: Cuisine?
     let mainIngredient: MainIngredient?
@@ -21,7 +21,7 @@ struct RecipeAssistantModel: Hashable {
     init(
         id: String,
         name: String? = nil,
-        cathegory: Cathegory? = nil,
+        category: Category? = nil,
         cookingTime: CookingTime? = nil,
         cuisine: Cuisine? = nil,
         mainIngredient: MainIngredient? = nil,
@@ -31,7 +31,7 @@ struct RecipeAssistantModel: Hashable {
     ) {
         self.id = id
         self.name = name
-        self.cathegory = cathegory
+        self.category = category
         self.cookingTime = cookingTime
         self.cuisine = cuisine
         self.mainIngredient = mainIngredient
@@ -49,39 +49,39 @@ struct RecipeAssistantModel: Hashable {
     }
     
     static var mocks: [RecipeAssistantModel] = [
-        RecipeAssistantModel(id: UUID().uuidString, name: "Quick and Easy Lunch", cathegory: .healthyBowl, cookingTime: .tenMinutes, cuisine: nil, mainIngredient: .grainsAndLegumes, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
-        RecipeAssistantModel(id: UUID().uuidString, name: "No effort dinner", cathegory: .traybakeDinner, cookingTime: .twentyMinutes, cuisine: nil, mainIngredient: .chicken, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
-        RecipeAssistantModel(id: UUID().uuidString, name: "Playdate Ideas", cathegory: .afternoonSnack, cookingTime: .fifteenMinutes, cuisine: nil, mainIngredient: nil, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
-        RecipeAssistantModel(id: UUID().uuidString, name: "Sunday Evening", cathegory: nil, cookingTime: .oneHour, cuisine: nil, mainIngredient: nil, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now)
+        RecipeAssistantModel(id: UUID().uuidString, name: "Quick and Easy Lunch", category: .healthyBowl, cookingTime: .tenMinutes, cuisine: nil, mainIngredient: .grainsAndLegumes, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
+        RecipeAssistantModel(id: UUID().uuidString, name: "No effort dinner", category: .traybakeDinner, cookingTime: .twentyMinutes, cuisine: nil, mainIngredient: .chicken, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
+        RecipeAssistantModel(id: UUID().uuidString, name: "Playdate Ideas", category: .afternoonSnack, cookingTime: .fifteenMinutes, cuisine: nil, mainIngredient: nil, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now),
+        RecipeAssistantModel(id: UUID().uuidString, name: "Sunday Evening", category: nil, cookingTime: .oneHour, cuisine: nil, mainIngredient: nil, profileImageName: Constants.randomImage, authorId: UUID().uuidString, dateCreated: .now)
     ]
 }
 
 struct RecipeAssistantDescriptionBuilder {
-    var cathegory: Cathegory?
+    var category: Category?
     var cookingTime: CookingTime?
     var cuisine: Cuisine?
     var mainIngredient: MainIngredient?
     
-    init(cathegory: Cathegory? = nil, cookingTime: CookingTime? = nil, cuisine: Cuisine? = nil, mainIngredient: MainIngredient? = nil) {
-        self.cathegory = cathegory
+    init(category: Category? = nil, cookingTime: CookingTime? = nil, cuisine: Cuisine? = nil, mainIngredient: MainIngredient? = nil) {
+        self.category = category
         self.cookingTime = cookingTime
         self.cuisine = cuisine
         self.mainIngredient = mainIngredient
     }
     
     init(assistant: RecipeAssistantModel) {
-        self.cathegory = assistant.cathegory ?? .defaultValue
+        self.category = assistant.category ?? .defaultValue
         self.cookingTime = assistant.cookingTime ?? .defaultValue
         self.cuisine = assistant.cuisine ?? .defaultValue
         self.mainIngredient = assistant.mainIngredient ?? .defaultValue
     }
     
     var assistantDescription: String {
-        "Recipes for \(cathegory!.rawValue) \(mainIngredient!.rawValue) that takes \(cookingTime!.rawValue) min. \(cuisine!.rawValue)"
+        "Recipes for \(category!.rawValue) \(mainIngredient!.rawValue) that takes \(cookingTime!.rawValue) min. \(cuisine!.rawValue)"
     }
 }
 
-enum Cathegory: String, CaseIterable, Hashable {
+enum Category: String, CaseIterable, Hashable {
     case traybakeDinner = "a Traybake Dinner"
     case healthyBowl = "a Healthy Bowl"
     case quickAndEasy = "a Quick and Easy meal"
