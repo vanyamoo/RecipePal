@@ -11,6 +11,7 @@ struct ExploreView: View {
     
     @State private var featuredAssistants = RecipeAssistantModel.mocks
     @State private var categories: [Category] = Category.allCases
+    @State private var popularAssistants = RecipeAssistantModel.mocks
     
     var body: some View {
         NavigationStack {
@@ -19,6 +20,8 @@ struct ExploreView: View {
                 featuredSection
                 
                 categorySection
+                
+                popularSection
 
             }
             .navigationTitle("Explore")
@@ -59,6 +62,22 @@ struct ExploreView: View {
             
         } header: {
             Text("Categories")
+        }
+    }
+    
+    private var popularSection: some View {
+        Section {
+            ForEach(popularAssistants, id: \.self) { assistant in
+                CustomListCellView(
+                    imageName: assistant.profileImageName,
+                    title: assistant.name,
+                    subtitle: assistant.description
+                )
+            }
+            .removeListRowFormatting()
+            
+        } header: {
+            Text("Popular")
         }
     }
 }
