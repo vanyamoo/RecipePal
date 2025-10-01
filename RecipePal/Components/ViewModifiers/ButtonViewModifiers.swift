@@ -27,7 +27,26 @@ struct PressableButtonStyle: ButtonStyle {
     }
 }
 
+enum ButtonStyleOption {
+    case highlight
+    case press
+    case plain
+}
+
 extension View {
+    
+    @ViewBuilder
+    func anyButton(_ option: ButtonStyleOption = .plain, action: @escaping () -> Void) -> some View {
+        switch option {
+        case .highlight:
+            self.highlightButton(action: action)
+        case .press:
+            self.pressableButton(action: action)
+        case .plain:
+            self.plainButton(action: action)
+        }
+    }
+    
     func highlightButton(action: @escaping () -> Void) -> some View {
         Button {
             action()
@@ -64,7 +83,7 @@ extension View {
             .padding()
             .frame(maxWidth: .infinity)
             .tappableBackground()
-            .highlightButton {
+            .anyButton(.highlight) {
                 // action
             }
         
@@ -73,7 +92,7 @@ extension View {
         } label: {
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
                 .callToActionButton()
-                .pressableButton {
+                .anyButton(.press) {
                     // action
                 }
         }
@@ -83,6 +102,9 @@ extension View {
         } label: {
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
                 .callToActionButton()
+                .anyButton {
+                    // action
+                }
         }
     }
     .padding(24)
