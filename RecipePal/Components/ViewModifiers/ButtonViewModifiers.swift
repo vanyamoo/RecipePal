@@ -47,7 +47,7 @@ extension View {
         }
     }
     
-    func highlightButton(action: @escaping () -> Void) -> some View {
+    private func highlightButton(action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
@@ -56,7 +56,7 @@ extension View {
         .buttonStyle(HightlightButtonStyle())
     }
     
-    func pressableButton(action: @escaping () -> Void) -> some View {
+    private func pressableButton(action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
@@ -65,7 +65,7 @@ extension View {
         .buttonStyle(PressableButtonStyle())
     }
     
-    func plainButton(action: @escaping () -> Void) -> some View {
+    private func plainButton(action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
