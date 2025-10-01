@@ -19,7 +19,7 @@ struct HightlightButtonStyle: ButtonStyle {
 }
 
 extension View {
-    func highlightButtonStyle(action: @escaping () -> Void) -> some View {
+    func highlightButton(action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
@@ -37,7 +37,7 @@ extension View {
             .padding()
             .frame(maxWidth: .infinity)
             .tappableBackground()
-            .highlightButtonStyle {
+            .highlightButton {
                 // action
             }
         
