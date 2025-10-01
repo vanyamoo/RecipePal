@@ -58,6 +58,7 @@ struct OnboardingCompletedView: View {
         .anyButton(.press) {
             onFinishButtonTapped()
         }
+        .disabled(isCompletingProfileSetup)
     }
 }
 
