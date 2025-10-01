@@ -45,6 +45,15 @@ extension View {
         }
         .buttonStyle(PressableButtonStyle())
     }
+    
+    func plainButton(action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            self
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
 }
 
 #Preview {
