@@ -36,6 +36,9 @@ struct ExploreView: View {
                     subtitle: assistant.description,
                     imageName: assistant.profileImageName
                 )
+                .anyButton(.plain) {
+                    // action
+                }
             }
             .removeListRowFormatting()
             
@@ -51,6 +54,9 @@ struct ExploreView: View {
                     HStack(spacing: 12) {
                         ForEach(categories, id: \.self) { category in
                             CategoryCellView(title: category.rawValue.capitalized, imageName: Constants.randomImage)
+                                .anyButton(.plain) {
+                                    // action
+                                }
                         }
                     }
                 }
@@ -73,6 +79,9 @@ struct ExploreView: View {
                     title: assistant.name,
                     subtitle: assistant.description
                 )
+                .anyButton(.highlight) {
+                    // action
+                }
             }
             .removeListRowFormatting()
             
