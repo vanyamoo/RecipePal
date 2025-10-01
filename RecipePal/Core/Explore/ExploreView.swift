@@ -37,7 +37,7 @@ struct ExploreView: View {
             .removeListRowFormatting()
             
         } header: {
-            Text("Featured Assistants")
+            Text("Featured")
         }
     }
     
