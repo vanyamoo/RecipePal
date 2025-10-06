@@ -10,10 +10,20 @@ import SwiftUI
 struct ProfileView: View {
     
     @State private var showSettingsView: Bool = false
+    @State private var currentUser: UserModel? = .mock
     
     var body: some View {
         NavigationStack {
-            Text("Profile")
+            List {
+                myInfoSection
+                
+                Section {
+                    
+                } header: {
+                    Text("My Avatars")
+                }
+
+            }
                 .navigationTitle("Profile")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -26,12 +36,23 @@ struct ProfileView: View {
         }
     }
     
+    private var myInfoSection: some View {
+        Section {
+            Circle()
+                .fill(currentUser?.profileColorCalculated ?? .accent)
+                .frame(width: 100, height: 100)
+                .frame(maxWidth: .infinity)
+                .removeListRowFormatting()
+        }
+    }
+    
     private var settingsButton: some View {
         Button {
             onSettingsButtonTapped()
         } label: {
             Image(systemName: "gear")
                 .font(.headline)
+                .foregroundStyle(.accent)
         }
     }
     
