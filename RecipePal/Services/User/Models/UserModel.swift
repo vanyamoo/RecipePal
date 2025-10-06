@@ -6,12 +6,24 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct UserModel {
     let userId: String
     let dateCreated: Date?
     let didCompleteOnboarding: Bool?
     let profileColorHex: String?
+    
+    init(userId: String, dateCreated: Date? = nil, didCompleteOnboarding: Bool? = nil, profileColorHex: String? = nil) {
+        self.userId = userId
+        self.dateCreated = dateCreated
+        self.didCompleteOnboarding = didCompleteOnboarding
+        self.profileColorHex = profileColorHex
+    }
+    
+    var profileColorCalculated: Color {
+        profileColorHex.map { Color(hex: $0) } ?? .accent
+    }
     
     static var mock: Self {
             mocks[0]
