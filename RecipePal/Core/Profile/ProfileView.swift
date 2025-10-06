@@ -12,7 +12,8 @@ struct ProfileView: View {
     @State private var showSettingsView: Bool = false
     @State private var showCreateRecipeAssistantView: Bool = false
     @State private var currentUser: UserModel? = .mock
-    @State private var myRecipeAssistants: [RecipeAssistantModel] = RecipeAssistantModel.mocks
+    @State private var myRecipeAssistants: [RecipeAssistantModel] = []
+    @State private var isLoading: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -34,6 +35,15 @@ struct ProfileView: View {
         .fullScreenCover(isPresented: $showCreateRecipeAssistantView) {
             Text("Create Recipe Assistant")
         }
+        .task {
+            await loadData()
+        }
+    }
+    
+    private func loadData() async {
+        try? await Task.sleep(for: .seconds(5))
+        isLoading = false
+        myRecipeAssistants = RecipeAssistantModel.mocks
     }
     
     private var myInfoSection: some View {
@@ -48,22 +58,38 @@ struct ProfileView: View {
     
     private var myRecipeAssistantsSection: some View {
         Section {
-            ForEach(myRecipeAssistants, id: \.self) { assistant in
-                CustomListCellView(
-                    imageName: assistant.profileImageName,
-                    title: assistant.name,
-                    subtitle: nil
-                )
-                .anyButton(.highlight) {
-                    
+            if myRecipeAssistants.isEmpty {
+                Group {
+                    if isLoading {
+                        ProgressView()
+                    } else {
+                        Text("Click + to create an assistant")
+                    }
                 }
+                .padding(50)
+                .frame(maxWidth: .infinity)
+                .foregroundStyle(.secondary)
                 .removeListRowFormatting()
+                
+            } else {
+                ForEach(myRecipeAssistants, id: \.self) { assistant in
+                    CustomListCellView(
+                        imageName: assistant.profileImageName,
+                        title: assistant.name,
+                        subtitle: nil
+                    )
+                    .anyButton(.highlight) {
+                        
+                    }
+                    .removeListRowFormatting()
+                }
+                .onDelete { indexSet in
+                    onDeleteAssistant(indexSet: indexSet)
+                }
             }
-            .onDelete { indexSet in
-                onDeleteAssistant(indexSet: indexSet)
-            }
-            
-        } header: {
+        }
+        
+        header: {
             HStack(spacing: 0) {
                 Text("My Recipe Assistants")
                 Spacer()
