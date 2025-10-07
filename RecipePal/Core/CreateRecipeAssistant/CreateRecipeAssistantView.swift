@@ -21,12 +21,15 @@ struct CreateRecipeAssistantView: View {
     @State private var isGenerating: Bool = false
     @State private var generatedImage: UIImage?
     
+    @State private var isSaving: Bool = false
+    
     var body: some View {
         NavigationStack {
             List {
                 nameSection
                 attributesSection
                 imageSection
+                saveSection
             }
             .navigationTitle("Create Recipe Assistant")
             .toolbar {
@@ -125,6 +128,19 @@ struct CreateRecipeAssistantView: View {
 
     }
     
+    private var saveSection: some View {
+        Section {
+            AsyncCallToActionButton(
+                isLoading: isSaving,
+                title: "Save",
+                action: onSaveButtonPressed
+            )
+        }
+        .removeListRowFormatting()
+        .opacity(generatedImage == nil ? 0.5 : 1.0)
+        .disabled(generatedImage == nil)
+    }
+    
     private func onBackButtonPressed() {
         dismiss()
     }
@@ -137,6 +153,17 @@ struct CreateRecipeAssistantView: View {
             generatedImage = UIImage(systemName: "star.fill")
             
             isGenerating = false
+        }
+    }
+    
+    private func onSaveButtonPressed() {
+        isSaving = true
+        
+        Task {
+            try? await Task.sleep(for: .seconds(2))
+            
+            dismiss()
+            isSaving = false
         }
     }
 }
