@@ -28,8 +28,11 @@ struct WelcomeView: View {
                 policyLinks
             }
             .sheet(isPresented: $showSignInView) {
-                CreateAccountView()
-                    .presentationDetents([.medium])
+                CreateAccountView(
+                    title: "Sign in",
+                    subtitle: "Connect to an existing account."
+                )
+                .presentationDetents([.medium])
             }
         }
     }
