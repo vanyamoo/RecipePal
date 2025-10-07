@@ -33,7 +33,7 @@ struct ProfileView: View {
             SettingsView()
         }
         .fullScreenCover(isPresented: $showCreateRecipeAssistantView) {
-            Text("Create Recipe Assistant")
+            CreateRecipeAssistantView()
         }
         .task {
             await loadData()
