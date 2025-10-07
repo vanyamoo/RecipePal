@@ -46,13 +46,13 @@ struct CreateRecipeAssistantView: View {
         Section {
             TextField("Assistant 1", text: $asistantName)
         } header: {
-            Text("Name Your RecipeAssistant*")
+            Text("Name Your Recipe Assistant *")
         }
     }
 
     private var attributesSection: some View {
         Section {
-            Picker("Recipes for...", selection: $selectedCategory) {
+            Picker("Assist with recipes for...", selection: $selectedCategory) {
                 ForEach(Category.allCases, id: \.self) { category in
                     Text(category.rawValue)
                         .tag(category)
