@@ -96,7 +96,7 @@ enum Category: String, CaseIterable, Hashable {
     }
 }
 
-enum CookingTime: Int {
+enum CookingTime: Int, CaseIterable, Hashable {
     case fiveMinutes = 5
     case tenMinutes = 10
     case fifteenMinutes = 15
@@ -111,7 +111,7 @@ enum CookingTime: Int {
     }
 }
 
-enum Cuisine: String {
+enum Cuisine: String, CaseIterable, Hashable {
     case italian = "Italian."
     case indian = "Indian."
     case japanese = "Japanese."
@@ -124,7 +124,7 @@ enum Cuisine: String {
     
 }
 
-enum MainIngredient: String {
+enum MainIngredient: String, CaseIterable, Hashable {
     case chicken = "with Chicken"
     case beef = "with Beef"
     case pork = "with Pork"
