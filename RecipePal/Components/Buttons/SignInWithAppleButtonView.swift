@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AuthenticationServices
+public import AuthenticationServices
 
 public struct SignInWithAppleButtonView: View {
     public let type: ASAuthorizationAppleIDButton.ButtonType
