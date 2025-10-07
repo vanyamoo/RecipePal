@@ -18,11 +18,15 @@ struct CreateRecipeAssistantView: View {
     @State private var selectedCookingTime: CookingTime = .defaultValue
     @State private var selectedCuisine: Cuisine = .defaultValue
     
+    @State private var isGenerating: Bool = false
+    @State private var generatedImage: UIImage?
+    
     var body: some View {
         NavigationStack {
             List {
                 nameSection
                 attributesSection
+                imageSection
             }
             .navigationTitle("Create Recipe Assistant")
             .toolbar {
@@ -84,8 +88,56 @@ struct CreateRecipeAssistantView: View {
         }
     }
     
+    private var imageSection: some View {
+        Section {
+            HStack(alignment: .top) {
+                ZStack {
+                    Text("Generate image")
+                        .underline()
+                        .foregroundStyle(.accent)
+                        .anyButton {
+                            onGenerateImagePressed()
+                        }
+                        .opacity(isGenerating ? 0 : 1)
+                    
+                    ProgressView()
+                        .tint(.accent)
+                        .opacity(isGenerating ? 1 : 0)
+                }
+                .disabled(isGenerating || asistantName.isEmpty)
+                
+                Circle()
+                    .fill(.secondary.opacity(0.3))
+                    .overlay(
+                        ZStack {
+                            if let generatedImage {
+                                Image(uiImage: generatedImage)
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                        }
+                    )
+                    .clipShape(Circle())
+            }
+            .removeListRowFormatting()
+            .padding(4)
+        }
+
+    }
+    
     private func onBackButtonPressed() {
         dismiss()
+    }
+    
+    private func onGenerateImagePressed() {
+        isGenerating = true
+        
+        Task {
+            try? await Task.sleep(for: .seconds(3))
+            generatedImage = UIImage(systemName: "star.fill")
+            
+            isGenerating = false
+        }
     }
 }
 
