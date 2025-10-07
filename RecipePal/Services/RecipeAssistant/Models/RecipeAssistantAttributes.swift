@@ -18,7 +18,7 @@ enum Category: String, CaseIterable, Hashable {
     case meal = "a meal"
     
     static var defaultValue: Self {
-        meal
+        .meal
     }
 }
 
@@ -42,7 +42,7 @@ enum Cuisine: String, CaseIterable, Hashable {
     case indian = "Indian."
     case japanese = "Japanese."
     case asian = "Asian."
-    case any = ""
+    case any = "Any cuisine"
     
     static var defaultValue: Self {
         .any
@@ -57,10 +57,10 @@ enum MainIngredient: String, CaseIterable, Hashable {
     case vegetables = "with Vegetables"
     case grainsAndLegumes = "with Grains/Legumes"
     case pasta = "with Pasta"
-    case any = ""
+    case any = "with any ingredient"
     
     static var defaultValue: Self {
-        .any
+        .chicken
     }
 }
 
