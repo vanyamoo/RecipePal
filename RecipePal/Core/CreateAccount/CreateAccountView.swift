@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+internal import AuthenticationServices
 
 struct CreateAccountView: View {
     var title: String = "Create Account?"
@@ -22,7 +23,15 @@ struct CreateAccountView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            // SignInWithAppleButton
+            SignInWithAppleButtonView(
+                type: .signIn,
+                style: .black,
+                cornerRadius: 10
+            )
+            .frame(height: 55)
+            .anyButton(.press) {
+                
+            }
             
             Spacer()
         }
