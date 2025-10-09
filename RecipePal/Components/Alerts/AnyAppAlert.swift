@@ -1,3 +1,10 @@
+//
+//  AnyAppAlert.swift
+//  RecipePal
+//
+//  Created by Vanya Mutafchieva on 09/10/2025.
+//
+
 import SwiftUI
 
 struct AnyAppAlert: Sendable {
