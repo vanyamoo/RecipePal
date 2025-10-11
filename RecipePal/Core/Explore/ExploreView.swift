@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum NavigationPathOption: Hashable {
-    case chat(assistantId: String)
-    case category(category: Category, imageName: String)
-}
-
 struct ExploreView: View {
     
     @State private var featuredAssistants = RecipeAssistantModel.mocks
@@ -32,14 +27,7 @@ struct ExploreView: View {
 
             }
             .navigationTitle("Explore")
-            .navigationDestination(for: NavigationPathOption.self) { newValue in
-                switch newValue {
-                case .chat(assistantId: let assistantId):
-                    ChatView(assistantId: assistantId)
-                case .category(category: let category, imageName: let imageName):
-                    CategoryListView(category: category, imageName: imageName)
-                }
-            }
+            .navigationDestinationForCoreModule(path: $path)
         }
     }
     
@@ -51,7 +39,7 @@ struct ExploreView: View {
                     subtitle: assistant.description,
                     imageName: assistant.profileImageName
                 )
-                .anyButton() {
+                .anyButton {
                     onRecipeAssistantPressed(assistant: assistant)
                 }
             }
@@ -71,7 +59,7 @@ struct ExploreView: View {
                             let imageName = popularAssistants.first(where: { $0.category == category })?.profileImageName
                             if let imageName {
                                 CategoryCellView(title: category.plural, imageName: Constants.randomImage)
-                                    .anyButton() {
+                                    .anyButton {
                                         onCategoryPressed(category: category, imageName: imageName)
                                     }
                             }

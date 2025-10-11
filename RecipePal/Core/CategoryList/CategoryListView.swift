@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryListView: View {
     
-    
+    @Binding var path: [NavigationPathOption]
     var category: Category = .defaultValue
     var imageName: String = Constants.randomImage
     @State private var recipeAssistants: [RecipeAssistantModel] = RecipeAssistantModel.mocks
@@ -41,12 +41,12 @@ struct CategoryListView: View {
     }
     
     private func onAssistantPressed(assistant: RecipeAssistantModel) {
-        
+        path.append(.chat(assistantId: assistant.id))
     }
 }
 
 #Preview {
     NavigationStack {
-        CategoryListView()
+        CategoryListView(path: .constant([]))
     }
 }

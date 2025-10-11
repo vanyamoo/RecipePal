@@ -36,6 +36,7 @@ struct ChatsView: View {
                 }
             }
             .navigationTitle("Chats")
+            .navigationDestinationForCoreModule(path: $path)
         }
     }
     
