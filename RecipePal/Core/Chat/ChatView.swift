@@ -28,27 +28,32 @@ struct ChatView: View {
                 textFieldSection
             }
             
-            if showProfileModal {
-                Color(.black).opacity(0.6)
-                    .ignoresSafeArea()
-                    .transition(AnyTransition.opacity.animation(.smooth))
-                    .onTapGesture {
-                        showProfileModal = false
-                    }
-                
-                if let recipeAssistant {
-                    ProfileModalView(
-                        imageName: recipeAssistant.profileImageName,
-                        title: recipeAssistant.name ?? "",
-                        subtitle: recipeAssistant.category?.rawValue.capitalized,
-                        headline: recipeAssistant.description,
-                        onXMarkPressed: {
+            ZStack {
+                if showProfileModal {
+                    Color(.black).opacity(0.6)
+                        .ignoresSafeArea()
+                        .transition(AnyTransition.opacity.animation(.smooth))
+                        .onTapGesture {
                             showProfileModal = false
                         }
-                    )
-                    .padding(40)
+                    
+                    if let recipeAssistant {
+                        ProfileModalView(
+                            imageName: recipeAssistant.profileImageName,
+                            title: recipeAssistant.name ?? "",
+                            subtitle: recipeAssistant.category?.rawValue.capitalized,
+                            headline: recipeAssistant.description,
+                            onXMarkPressed: {
+                                showProfileModal = false
+                            }
+                        )
+                        .padding(40)
+                        .transition(.slide)
+                    }
                 }
             }
+            .zIndex(999)
+            .animation(.bouncy, value: showProfileModal)
         }
         .navigationTitle(recipeAssistant?.name ?? "Chat")
         .navigationBarTitleDisplayMode(.inline)
