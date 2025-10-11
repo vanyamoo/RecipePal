@@ -21,6 +21,8 @@ struct ChatView: View {
     
     @State private var showProfileModal: Bool = false
     
+    var assistantId: String = RecipeAssistantModel.mock.id
+    
     var body: some View {
         VStack(spacing: 0) {
             scrollViewSection
@@ -41,17 +43,7 @@ struct ChatView: View {
         .showCustomAlert(alert: $alert)
         .showModal($showProfileModal) {
             if let recipeAssistant {
-                ProfileModalView(
-                    imageName: recipeAssistant.profileImageName,
-                    title: recipeAssistant.name ?? "",
-                    subtitle: recipeAssistant.category?.rawValue.capitalized,
-                    headline: recipeAssistant.description,
-                    onXMarkPressed: {
-                        showProfileModal = false
-                    }
-                )
-                .padding(40)
-                .transition(.slide)
+                profileModal(recipeAssistant: recipeAssistant)
             }
         }
     }
@@ -106,6 +98,20 @@ struct ChatView: View {
             .padding(.vertical, 6)
             .padding(.horizontal, 20)
             .background(Color(.secondarySystemBackground))
+    }
+    
+    private func profileModal(recipeAssistant: RecipeAssistantModel) -> some View {
+        ProfileModalView(
+            imageName: recipeAssistant.profileImageName,
+            title: recipeAssistant.name ?? "",
+            subtitle: recipeAssistant.category?.rawValue.capitalized,
+            headline: recipeAssistant.description,
+            onXMarkPressed: {
+                showProfileModal = false
+            }
+        )
+        .padding(40)
+        .transition(.slide)
     }
     
     private func onSendMessagePressed() {
