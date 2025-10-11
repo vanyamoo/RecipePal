@@ -11,8 +11,10 @@ struct ChatsView: View {
     
     @State private var chats: [ChatModel] = ChatModel.mocks
     
+    @State private var path: [NavigationPathOption] = []
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 ForEach(chats) { chat in
                     ChatRowCellViewBuilder(
@@ -28,13 +30,17 @@ struct ChatsView: View {
                         }
                     )
                     .anyButton(.highlight, action: {
-                        
+                        onChatPressed(chat)
                     })
                     .removeListRowFormatting()
                 }
             }
             .navigationTitle("Chats")
         }
+    }
+    
+    private func onChatPressed(_ chat: ChatModel) {
+        path.append(.chat(assistantId: chat.recipeAssistantId))
     }
 }
 
