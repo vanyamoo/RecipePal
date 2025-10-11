@@ -19,10 +19,36 @@ struct ChatView: View {
     @State private var showChatSettings: AnyAppAlert?
     @State private var alert: AnyAppAlert?
     
+    @State private var showProfileModal: Bool = false
+    
     var body: some View {
-        VStack(spacing: 0) {
-            scrollViewSection
-            textFieldSection
+        ZStack {
+            VStack(spacing: 0) {
+                scrollViewSection
+                textFieldSection
+            }
+            
+            if showProfileModal {
+                Color(.black).opacity(0.6)
+                    .ignoresSafeArea()
+                    .transition(AnyTransition.opacity.animation(.smooth))
+                    .onTapGesture {
+                        showProfileModal = false
+                    }
+                
+                if let recipeAssistant {
+                    ProfileModalView(
+                        imageName: recipeAssistant.profileImageName,
+                        title: recipeAssistant.name ?? "",
+                        subtitle: recipeAssistant.category?.rawValue.capitalized,
+                        headline: recipeAssistant.description,
+                        onXMarkPressed: {
+                            showProfileModal = false
+                        }
+                    )
+                    .padding(40)
+                }
+            }
         }
         .navigationTitle(recipeAssistant?.name ?? "Chat")
         .navigationBarTitleDisplayMode(.inline)
@@ -47,7 +73,8 @@ struct ChatView: View {
                     ChatBubbleViewBuilder(
                         message: message,
                         isCurrentUser: isCurrentUser,
-                        imageName: isCurrentUser ? nil : recipeAssistant?.profileImageName
+                        imageName: isCurrentUser ? nil : recipeAssistant?.profileImageName,
+                        onImagePressed: onRecipeAssistantImagePressed
                     )
                     .id(message.id)
                 }
@@ -134,6 +161,10 @@ struct ChatView: View {
                 )
             }
         )
+    }
+    
+    private func onRecipeAssistantImagePressed() {
+        showProfileModal = true
     }
 }
 
