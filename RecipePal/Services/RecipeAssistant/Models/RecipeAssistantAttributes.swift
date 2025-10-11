@@ -20,6 +20,27 @@ enum Category: String, CaseIterable, Hashable {
     static var defaultValue: Self {
         .meal
     }
+    
+    var plural: String {
+        switch self {
+        case .traybakeDinner:
+            return "Traybake Dinners"
+        case .healthyBowl:
+            return "Healthy Bowls"
+        case .quickAndEasy:
+            return "Quick and Easy meals"
+        case .soup:
+            return "Soups"
+        case .afternoonSnack:
+            return "Snacks"
+        case .cookingWithKids:
+            return "Cooking with Kids"
+        case .pasta:
+            return "Pasta meals"
+        case .meal:
+            return "Meals"
+        }
+    }
 }
 
 enum CookingTime: Int, CaseIterable, Hashable {
