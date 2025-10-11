@@ -7,14 +7,21 @@
 
 import SwiftUI
 
+enum NavigationPathOption: Hashable {
+    case chat(assistantId: String)
+    case category(category: Category, imageName: String)
+}
+
 struct ExploreView: View {
     
     @State private var featuredAssistants = RecipeAssistantModel.mocks
     @State private var categories: [Category] = Category.allCases
     @State private var popularAssistants = RecipeAssistantModel.mocks
     
+    @State private var path: [NavigationPathOption] = []
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 
                 featuredSection
@@ -25,6 +32,14 @@ struct ExploreView: View {
 
             }
             .navigationTitle("Explore")
+            .navigationDestination(for: NavigationPathOption.self) { newValue in
+                switch newValue {
+                case .chat(assistantId: let assistantId):
+                    ChatView(assistantId: assistantId)
+                case .category(category: let category, imageName: let imageName):
+                    CategoryListView(category: category, imageName: imageName)
+                }
+            }
         }
     }
     
@@ -37,7 +52,7 @@ struct ExploreView: View {
                     imageName: assistant.profileImageName
                 )
                 .anyButton() {
-                    // action
+                    onRecipeAssistantPressed(assistant: assistant)
                 }
             }
             .removeListRowFormatting()
@@ -53,10 +68,13 @@ struct ExploreView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         ForEach(categories, id: \.self) { category in
-                            CategoryCellView(title: category.plural, imageName: Constants.randomImage)
-                                .anyButton() {
-                                    // action
-                                }
+                            let imageName = popularAssistants.first(where: { $0.category == category })?.profileImageName
+                            if let imageName {
+                                CategoryCellView(title: category.plural, imageName: Constants.randomImage)
+                                    .anyButton() {
+                                        onCategoryPressed(category: category, imageName: imageName)
+                                    }
+                            }
                         }
                     }
                 }
@@ -80,7 +98,7 @@ struct ExploreView: View {
                     subtitle: assistant.description
                 )
                 .anyButton(.highlight) {
-                    // action
+                    onRecipeAssistantPressed(assistant: assistant)
                 }
             }
             .removeListRowFormatting()
@@ -88,6 +106,14 @@ struct ExploreView: View {
         } header: {
             Text("Popular")
         }
+    }
+    
+    private func onRecipeAssistantPressed(assistant: RecipeAssistantModel) {
+        path.append(.chat(assistantId: assistant.id))
+    }
+    
+    private func onCategoryPressed(category: Category, imageName: String) {
+        path.append(.category(category: category, imageName: imageName))
     }
 }
 
