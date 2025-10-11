@@ -5,7 +5,6 @@
 //  Created by Vanya Mutafchieva on 11/10/2025.
 //
 
-
 import SwiftUI
 
 struct ProfileModalView: View {
