@@ -10,12 +10,15 @@ import SwiftUI
 struct ChatsView: View {
     
     @State private var chats: [ChatModel] = ChatModel.mocks
-    
+    @State private var recentAssistants: [RecipeAssistantModel] = RecipeAssistantModel.mocks
     @State private var path: [NavigationPathOption] = []
     
     var body: some View {
         NavigationStack(path: $path) {
             List {
+                if !recentAssistants.isEmpty {
+                    recentsSection
+                }
                 chatsSection
             }
             .navigationTitle("Chats")
@@ -25,6 +28,39 @@ struct ChatsView: View {
     
     private func onChatPressed(_ chat: ChatModel) {
         path.append(.chat(assistantId: chat.recipeAssistantId))
+    }
+    
+    private var recentsSection: some View {
+        Section(header: Text("Recents")) {
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 16) {
+                    ForEach(recentAssistants, id: \.self) { assistant in
+                        VStack {
+                            if let imageName = assistant.profileImageName {
+                                ImageLoaderView(urlString: imageName)
+                                    
+                                    .aspectRatio(1, contentMode: .fit)
+                                    .clipShape(Circle())
+                                    .frame(height: 90)
+                                
+                                Text(assistant.name ?? "")
+                                    .frame(width: 90)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .anyButton {
+                            onAssistantPressed(assistant: assistant)
+                        }
+                    }
+                }
+                .padding(.vertical, 12)
+                .padding(.horizontal, 8)
+            }
+            .frame(height: 120)
+            .scrollIndicators(.hidden)
+            .removeListRowFormatting()
+        }
     }
     
     @ViewBuilder
@@ -57,6 +93,10 @@ struct ChatsView: View {
                 .removeListRowFormatting()
             }
         }
+    }
+    
+    private func onAssistantPressed(assistant: RecipeAssistantModel) {
+        path.append(.chat(assistantId: assistant.id))
     }
 }
 
