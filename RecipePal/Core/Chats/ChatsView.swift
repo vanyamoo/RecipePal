@@ -16,24 +16,7 @@ struct ChatsView: View {
     var body: some View {
         NavigationStack(path: $path) {
             List {
-                ForEach(chats) { chat in
-                    ChatRowCellViewBuilder(
-                        currentUserId: nil, // Add cuid
-                        chat: chat,
-                        getRecipeAssistant: {
-                            try? await Task.sleep(for: .seconds(1))
-                            return .mock
-                        },
-                        getLastChatMessage: {
-                            try? await Task.sleep(for: .seconds(1))
-                            return .mock
-                        }
-                    )
-                    .anyButton(.highlight, action: {
-                        onChatPressed(chat)
-                    })
-                    .removeListRowFormatting()
-                }
+                chatsSection
             }
             .navigationTitle("Chats")
             .navigationDestinationForCoreModule(path: $path)
@@ -42,6 +25,38 @@ struct ChatsView: View {
     
     private func onChatPressed(_ chat: ChatModel) {
         path.append(.chat(assistantId: chat.recipeAssistantId))
+    }
+    
+    @ViewBuilder
+    private var chatsSection: some View {
+        if chats.isEmpty {
+            Text("Your chats will appear here!")
+                .foregroundStyle(.secondary)
+                .font(.title3)
+                .frame(maxWidth: .infinity)
+                .multilineTextAlignment(.center)
+                .padding(40)
+                .removeListRowFormatting()
+        } else {
+            ForEach(chats) { chat in
+                ChatRowCellViewBuilder(
+                    currentUserId: nil, // Add cuid
+                    chat: chat,
+                    getRecipeAssistant: {
+                        try? await Task.sleep(for: .seconds(1))
+                        return .mock
+                    },
+                    getLastChatMessage: {
+                        try? await Task.sleep(for: .seconds(1))
+                        return .mock
+                    }
+                )
+                .anyButton(.highlight, action: {
+                    onChatPressed(chat)
+                })
+                .removeListRowFormatting()
+            }
+        }
     }
 }
 
